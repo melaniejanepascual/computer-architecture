@@ -1,0 +1,47 @@
+1. Atom
+
+2.
+    A | B | NOT(A) | NOT(B) | NOT(A) OR NOT(B) | output
+  ------------------------------------------------------
+    0 | 0 |   1    |    1   |         1        |    0
+    0 | 1 |   1    |    0   |         1        |    0
+    1 | 0 |   0    |    1   |         1        |    0
+    1 | 1 |   0    |    0   |         0        |    1
+
+    A AND B
+
+3.
+  A | B | C | output
+  -------------------
+  0 | 0 | 0 |    1
+  0 | 0 | 1 |    0
+  0 | 1 | 0 |    1
+  0 | 1 | 1 |    0
+  1 | 0 | 0 |    1
+  1 | 0 | 1 |    0
+  1 | 1 | 0 |    0
+  1 | 1 | 1 |    0
+
+  4.
+
+  A | B | output
+  --------------
+  0 | 0 |    1
+  0 | 1 |   N/A
+  1 | 0 |   N/A
+  1 | 1 |    0
+
+  When A & B are different, a short circuit happens because the electricity is
+  flowing from the NMOS ground circuit and from the PMOS power circuit. This
+  causes the wire to be receiving electricity from two sources, the ground and
+  the power. This issue only occurs when outputs are different because when they
+  are the same, power is coming from only one side.
+
+  5.
+    1) A
+    2) A
+    3) B
+    4) B
+    5) C
+    6) out
+    7) C

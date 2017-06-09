@@ -1,0 +1,38 @@
+If you request two separate chunks of memory from malloc() in the same program,
+you'll find they are not directly contiguous (i.e., right next to each other).
+How close are they?
+
+    50 address is 0x1c87010
+    100 address is 0x1c87050
+    500 address is 0x1c870c0
+
+The malloc calls are near each other (which is told by the 0x1c870),
+but not directly next to each other wwith at least 4 bytes between
+each chunk of memory.
+
+How does the size of the chunks you request affect how close together they are?
+  To solve this problem, I had two malloc calls (s & f). I started s at malloc(1)
+  and f with malloc(10). f stayed consistent and I slowly kept increasing the size of
+  malloc until it changed at size 24. The first malloc call pushed the address of
+  the second malloc call from 30 to 40.
+
+    1-24:
+      1 address is 0x996010
+      10 address is 0x996030
+
+    25:
+      1 address is 0x92a010
+      10 address is 0x92a040
+
+If you request a chunk of memory with malloc(), you actually get more than you
+ask for. How much more? (Hint: consider how you can check whether you have access
+to a particular memory address; consider how the system tells you when you don't.)
+
+  A segmentation fault tells you when you don't have access to a memory address.
+
+Why might malloc() behave like this? What benefit can you see to malloc() actually
+setting aside way more memory than you asked for?
+
+  Malloc adds more memory than requested because programmers tend to overstuff items
+  in memory even if they didn't request that much. C doesn't do bounds checking, so
+  it assumes the programmer knows how much memory to store.

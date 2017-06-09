@@ -1,0 +1,47 @@
+General check (3 different inputs):
+      set write-key to 000110
+      set write-value to 01111111
+      toggle write-enable
+      set read-key to 000110
+      verify that read-value is 01111111
+
+      set write-key to 111111
+      set write-value to 01010001
+      toggle write-enable
+      set read-key to 111111
+      verify that read-value is 01010001
+
+      set write-key to 010110
+      set write-value to 00000001
+      toggle write-enable
+      set read-key to 010110
+      verify that read-value is 00000001
+
+Testing 000000
+      set write-key to 000000
+      set write-value to 10000001
+      toggle write-enable
+      set read-key to 000000
+      verify that read-value is 10000001
+
+Testing duplicate keys
+
+      set write-key to 100001
+      set write-value to 11111111
+      toggle write-enable
+      set read-key to 100001
+      verify that read-value is 11111111
+
+      set write-key to 111111
+      set write-value to 01010001
+      toggle write-enable
+      set read-key to 111111
+      verify that read-value is 01010001
+
+      set write-key to 100001
+      set write-value to 10000000
+      toggle write-enable
+      set read-key to 100001
+      verify that read-value is 10000000
+      verify that eviction policy follows
+      verify that read-value doesn't match to 11111111

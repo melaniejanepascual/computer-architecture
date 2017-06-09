@@ -1,0 +1,129 @@
+x86 Assembly Language Architecture Reference
+
+  Special Registers:
+      %rsp: register stack pointer
+      %rbp: register frame pointer, beginning of the stack
+      %rsi: register that makes a copy of the location of the data
+
+  My declared definitions:
+      distance: the specific distance for RBP/how many bits it is located in the
+                Stack, only associated with RBP
+      immediate value: constant for the value some item is supposed to hold, similar
+                to imm12 in ARM32
+      register: non-special register, usually starts with %e_x
+
+  Difference between L and Q:
+      L is for 32 bit items and Q is for 64 bit items. In the examples that were given,
+      the q variables were the ones in the array.c and array-for.c file
+
+  Stack instructions
+
+      pushq %rbp
+        Pushes the program onto the Stack. All programs have this at the beginning
+        with their function prologue. the only operand is rbp.
+
+      popq %rbp
+        Pops the program from the Stack. All programs end with this instruction in
+        their function epilogue. The only operand is rbp.
+
+  Move instructions: moves data into registers at specific locations
+
+      movq %rsi, -distance(%rbp)
+        Takes in rsi, distance, and rbp.
+        This instruction is called at the beginning of every program in order to
+        point where the Stack starts (%rbp)and makes a copy of where the Stack
+        starts (%rsi)
+
+      movq %rsp, %rbp
+        Takes in two special registers: rsp & rbp
+        This instruction uses special registers to declare the stack pointer and
+        frame pointer at the beginning of each program.
+
+      movl $immediate_value, -distance(%rbp)
+        Takes in immediate value, distance, and rbp.
+        This movl instruction assigns the immediate value to a specific location.
+        The location is determined using distance (number of bits) from the start
+        of the program (rbp). rbp assigns the value to the location.
+
+      movl $immediate_value, %register
+        Takes in an immediate value and non-special register.
+        This movl instruction assigns an immediate value to specified register in
+        the Stack. The register is not one of the special registers.
+
+      movl %register, -distance(%rbp) / movl -distance(%rbp), %register
+        Takes in a non-special register, distance, and rbp.
+        This movl instruction assigns the register to a specific location.
+        The location is determined using distance (number of bits) from the start
+        of the program (rbp). rbp assigns the value to the location.
+
+      movl rd, rn
+        This movl takes in 2 non-special registers and assigns register 2 to register 1.
+
+      movl %register, -distance(%rbp, %rax, 4)
+        This movl puts the content of register to the location of at the registers that
+        has space of 4.
+
+
+  End instructions
+
+      ret
+        This instruction returns value, usually within a loop or conditional
+        statement branch, but also in the main program. This instruction is given
+        at the end of a a series of instructions.
+
+      leave
+        This instruction stops the program once all the instructions within are
+        completed.
+
+      cltq
+        This instruction changes the size of the bits to 64 (q).
+
+      call functionName
+        This call function takes in a function name and runs whatever function is
+        called.
+
+  Arithmetic functions
+
+      addl $immediate_value, -distance(%rbp)
+        This addl instruction is usually used in incrementing values. It increment
+        values based on the immediate value and the -distance(%rbp) tells the program
+        where to start in terms of location within the stack
+
+      addl Rn, Rd
+        This instruction adds rn with rd and places the value in rd.
+
+      subl $immediate_value, -distance(%rbp)
+        This subl instruction is usually used in decrementing values. It decrements
+        values based on the immediate value and the -distance(%rbp) tells the program
+        where to start in terms of location within the stack
+
+      subq $immediate_value, %rsp
+        The subq instruction tells the program how many bytes should be set on
+        the stack frame, it's typically declared in the beginning of the program.
+
+      cmpl $immediate_value, -distance(%rbp)
+        This instruction compares the immediate value to whatever is located at
+        the -distance(%rbp) register.
+
+      negl -distance(%rbp)
+        This instruction negates (twos complement) whatever is located at the
+        register location.
+
+      sall $immediate_value, %register
+          This instruction performs an arithmetic shift left to whatever is at the
+          immediate value located at the specified register.
+
+  Jump instructions: where to go within the program, similar to branch
+
+      jmp .L#
+        This instruction jumps to location(.L) wherever it is called and skips
+        everything after it.
+
+      jle .L#
+        This instruction jumps to location(.L) if less or equal
+
+      jg .L#
+        This instruction jumps to location(.L) if greater
+
+      jns .L#
+        This instruction jumps to location(.L) if unsigned

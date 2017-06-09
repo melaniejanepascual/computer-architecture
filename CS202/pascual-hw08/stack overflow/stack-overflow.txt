@@ -1,0 +1,50 @@
+What is the maximum size of the stack? That is, how much stuff can you shove onto
+the stack before a program crashes?
+
+  I wrote stack-overflow.c with a recursive function that will keep iterating by one
+  and calling itself until the program crashes with a segmentation error. The recursive
+  function is meant to return the amount of times a function is called so that I can
+  calculate the size of the stack. The count variable was used to keep track of the
+  amount of times the function angry is called. I compiled the program using gcc -g -o
+  stack-overflow stack-overflow.c and ran the program with the command ./stack-overflow.
+  The count variable will be printed out every time a function is called to represent the amount
+  of function calls. The recursive function call is intended to max out the number of
+  stack frames within the Stack. The program ran the function call about ~174,500
+  times until a segmentation error occurred. In order to determine how much stuff
+  crashes the program, I figured out the size of the the function call angry. The
+  function angry has a stack pointer (64 bytes), frame pointer (64 bytes), integer parameter (
+  4 bytes), and local integer variable (4 bytes). The size of angry is then 136, multiplied by 174,500
+  is 23,732,000. After running it in the terminal, I went to use the debugger and wrote the
+  command "gdb stack-overflow." I put a breakpoint at "b main" to start off and returned
+  "run" and "next," which printed the amount of times the function was called.
+  Then, I ran the command next which called the function angry
+  and the print f returned the count variable that represented the amount of times the
+  function angry was called. The result was 174,609 all the time after running the same
+  process in gdb.
+
+Is this repeatable? (I.e., is the stack always the same size?)
+  When running the program on the command line, I noticed I kept getting different
+  maximum numbers. The results of 8 trials were:
+      174574
+      174541
+      174582
+      174443
+      174506
+      174523
+      174524
+      174455
+  The numbers ranged from 174,400 to 174,600. However, when running the program
+  in gdb (using the next function), the number was always the same - 174,609. I
+  multiplied the amount of stack frames with the size of the function angry and
+  got 23,787,216 as the stack size in the gdb.
+
+Is this affected by stack frame size?
+  In order to see if it is affected by the stack frame size, I wrote another
+  function called happy in the program and it was identical to the function angry.
+  However, the difference is that happy has two local variables (count and sleep)
+  so that I can see what happens if the stack frame size is affected.
+    174591
+    174574
+  The stack frame is not affected because the numbers still range within the
+  174,500 range and when it is run in the gdb (commands used are b main, run,
+  and next) the result is still 174,609.
