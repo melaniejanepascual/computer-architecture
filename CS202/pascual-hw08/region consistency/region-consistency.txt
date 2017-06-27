@@ -1,6 +1,0 @@
-How consistent are their locations in memory between executions of the same program?
-
-  With GDB:
-
-
-  Without GDB:s
