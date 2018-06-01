@@ -1,0 +1,45 @@
+html {
+  background-color: black;
+}
+
+header {
+  width: 100%
+  position: fixed;
+  z-index: 1;
+  height: 69px;
+  background-color: black;
+  border-bottom: 1px solid seashell;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+  padding-left: 10px;
+}
+
+/* Our Mission section */
+
+#mission {
+  height: 700px;
+  background-image: url(https://s3.amazonaws.com/codecademy-content/courses/freelance-1/unit-4/img-mission-background.jpg);
+}
+
+#mission .content {
+  margin: auto;
+  background-color: black;
+  width: 100%
+  }
+
+  div {
+    display: block;
+  }
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+body {
+  background-color: black;
+}
